@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { Persona } from '../Modelo/Persona';
+import { Funcionario } from '../Modelo/Funcionario';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +9,9 @@ export class ServiceService {
 
   constructor(private http:HttpClient) { }
 
-  Url='http://localhost:8080/workshop/Persona'
+  Url='http://localhost:8080/funcionarios'
 
-  getPersona(){
-    return this.http.get<Persona[]>(this.Url)
+  getFuncionario(){
+    return this.http.get<Funcionario[]>(this.Url)
   }
 }

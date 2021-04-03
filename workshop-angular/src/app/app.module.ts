@@ -3,9 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ListarComponent } from './Persona/listar/listar.component';
-import { EditarComponent } from './Persona/editar/editar.component';
-import { AdicionarComponent } from './Persona/adicionar/adicionar.component';
+import { ListarComponent } from './Funcionario/listar/listar.component';
+import { EditarComponent } from './Funcionario/editar/editar.component';
+import { AdicionarComponent } from './Funcionario/adicionar/adicionar.component';
+
+import { FormsModule } from '@angular/forms';
+import { ServiceService } from '../app/Service/service.service';
+import { HttpClientModule } from '@angular/common/http'
 
 @NgModule({
   declarations: [
@@ -16,9 +20,11 @@ import { AdicionarComponent } from './Persona/adicionar/adicionar.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [ServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
