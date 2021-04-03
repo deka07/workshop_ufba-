@@ -199,3 +199,14 @@
 > ~~~
 > http://localhost:8080/participa-de/1
 > ~~~
+
+
+## Modelo relacional do Banco de Dados
+![modelo workshop](https://user-images.githubusercontent.com/58126683/113465830-67175480-940d-11eb-8a1c-ee1de48e0675.png)
+
+## Representação do Banco de dados
+![modelo workshop2](https://user-images.githubusercontent.com/58126683/113465838-726a8000-940d-11eb-9071-35b4f2b7bf3c.png)
+
+
+
+
