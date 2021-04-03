@@ -1,0 +1,50 @@
+package com.example.workshop.form;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.workshop.model.Cargo;
+
+public class CargoFormSaida {
+
+	private Long id;
+	private String descricao;
+	
+	public CargoFormSaida(Long id, String descricao) {
+		this.descricao = descricao;
+		this.id = id;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public static List<CargoFormSaida> converter(List<Cargo> cargos) {
+		List<CargoFormSaida> cargosFormGet = new ArrayList<CargoFormSaida>();
+		cargos.forEach(cargo ->{
+			cargosFormGet.add(new CargoFormSaida(cargo.getId(), cargo.getDescricao()));
+		});
+		
+		return cargosFormGet;
+	}
+
+
+	public static CargoFormSaida criarSaida(Cargo cargo) {
+		return new CargoFormSaida(cargo.getId(), cargo.getDescricao());
+	}
+
+
+
+}
