@@ -9,13 +9,14 @@
                     <tr class="text-center">
                       <th>ID</th>
                       <th>NOME</th>                      
-                      <th></th>
+                      <th>CPF</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let func of funcionarios" class="text-center">
                       <td>{{func.id}}</td>
                       <td>{{func.nome}}</td>                      
+                      <td>{{func.cpf}}</td> 
                       <td>
                         <button class="btn btn-warning">Editar</button>
                         <button class="btn btn-danger">Deletar</button>
