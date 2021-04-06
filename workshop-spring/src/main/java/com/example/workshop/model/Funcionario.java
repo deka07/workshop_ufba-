@@ -1,5 +1,7 @@
 package com.example.workshop.model;
 
+import java.util.List;
+
 import javax.persistence.*;        
 
 @Entity
@@ -8,24 +10,37 @@ public class Funcionario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 150, nullable = false)
+    @Column(name= "nome_funcionario", length = 150, nullable = false)
     private String nome;
-    @Column(length = 11, nullable = false)
+    @Column(name = "cpf_funcionario",length = 11, nullable = false)
     private String cpf;
     @ManyToOne
     @JoinColumn(name = "id_departamento")
     private Departamento departamento;
     @ManyToOne
-    @JoinColumn(name="id_cargo")
-    private Cargo cargo;
+    @JoinColumn(name="id_endereco")
+    private Endereco endereco;
     
-    Funcionario() {}
+    @ManyToMany
+    @JoinTable(
+    		name = "participa_de",
+    		joinColumns = {
+    				@JoinColumn(name= "id_funcionario", referencedColumnName = "id")},
+    				inverseJoinColumns= {
+    						@JoinColumn(name="id_projeto", referencedColumnName = "id")
+    				}
+    		
+    		)
+    private List<Projeto> projeto;
     
-    public Funcionario(String nome, String cpf, Departamento departamento, Cargo cargo) {
+
+	Funcionario() {}
+    
+    public Funcionario(String nome, String cpf, Departamento departamento, Endereco endereco) {
         this.nome = nome;
         this.cpf = cpf;
         this.departamento = departamento;
-        this.cargo = cargo;
+        this.endereco = endereco;
     }
 
 
@@ -45,14 +60,6 @@ public class Funcionario {
 		this.departamento = departamento;
 	}
 
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -65,4 +72,22 @@ public class Funcionario {
     public void setNome(String nome) {
         this.nome = nome;
     }    
+    
+    public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+
+	public List<Projeto> getProjeto() {
+		return projeto;
+	}
+
+	public void setProjeto(List<Projeto> projeto) {
+		this.projeto = projeto;
+	}
+	
+	
 }
