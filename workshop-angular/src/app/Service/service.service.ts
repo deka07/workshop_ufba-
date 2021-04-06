@@ -14,4 +14,10 @@ export class ServiceService {
   getFuncionario(){
     return this.http.get<Funcionario[]>(this.Url)
   }
+
+  createFuncionario(func:Funcionario){
+    return this.http.post<Funcionario>(this.Url,func)
+  }
+
+
 }
