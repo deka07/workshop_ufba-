@@ -28,7 +28,7 @@ public class EstadoController {
     
     @PostMapping
     public Estado Salvar(@RequestBody Estado novoEstado) {
-        return estadoRepository.save(novoEstado);
+        return this.estadoRepository.save(novoEstado);
     }  
     
     @GetMapping("/{id}")
