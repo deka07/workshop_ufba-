@@ -14,11 +14,11 @@ public class Projeto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = false, unique = true)
+	@Column(name = "nome_projeto",nullable = false, unique = true)
 	private String nome;
 	@Column(name = "data_inicio", nullable = false)
 	private String dataInicio;
-	@Column(nullable = false)
+	@Column(name = "nome_contratante", nullable = false)
 	private String contratante;
 	
 	public Projeto() {}
@@ -28,27 +28,31 @@ public class Projeto {
 		this.dataInicio = dataInicio;
 		this.contratante = contratante;
 	}
-	
-	
-	
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public String getDataInicio() {
 		return dataInicio;
 	}
+
 	public void setDataInicio(String dataInicio) {
 		this.dataInicio = dataInicio;
 	}
+
 	public String getContratante() {
 		return contratante;
 	}
+
 	public void setContratante(String contratante) {
 		this.contratante = contratante;
 	}
+
 	public Long getId() {
 		return id;
 	}

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+/*
 @Entity
 @Table(name="participa_de")
 public class ParticipaDe {
@@ -47,3 +47,4 @@ public class ParticipaDe {
 	
 	
 }
+*/
