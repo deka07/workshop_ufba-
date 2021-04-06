@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Funcionario } from 'src/app/Modelo/Funcionario';
+import { ServiceService } from '../../../app/Service/service.service';
 
 @Component({
   selector: 'app-adicionar',
@@ -7,9 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdicionarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router, private service:ServiceService){}
 
   ngOnInit(): void {
   }
 
+  Salvar(func:Funcionario){
+    this.service.createFuncionario(func).subscribe(data=>{
+      alert("Com Sucesso!");
+      this.router.navigate(["listar"])
+    });
+  }
 }
