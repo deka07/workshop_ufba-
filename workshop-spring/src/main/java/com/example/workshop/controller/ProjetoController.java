@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.workshop.controller.dto.ProjetoDto;
+import com.example.workshop.controller.form.ProjetoForm;
 import com.example.workshop.data.ProjetoRepository;
-import com.example.workshop.form.ProjetoFormEntrada;
-import com.example.workshop.form.ProjetoFormSaida;
 import com.example.workshop.model.Projeto;
 
 @RestController
@@ -28,36 +27,33 @@ public class ProjetoController {
 	private ProjetoRepository projetoRepository;
 	
 	@GetMapping
-	public List<ProjetoFormSaida> listar() {
-		List<Projeto> progetos = this.projetoRepository.findAll();
-		
-		return ProjetoFormSaida.converter(progetos);
+	public List<ProjetoDto> listar() {
+		return ProjetoDto.converteList(this.projetoRepository.findAll());
+
 	}
 	
 	@PostMapping
 	@Transactional
-	public ProjetoFormSaida salvar(@RequestBody ProjetoFormEntrada formEntrada) {
-		Projeto projeto = formEntrada.criaProjeto();
-		this.projetoRepository.save(projeto);
-		
-		return ProjetoFormSaida.criarSaida(projeto); 
-	}
-	
-	@GetMapping("/{id}")
-	public ProjetoFormSaida Buscar(@PathVariable Long id) {
-		Projeto projeto = this.projetoRepository.findById(id).get();
-		return ProjetoFormSaida.criarSaida(projeto);
+	public ProjetoDto Salvar(@RequestBody ProjetoForm projetoNew) {
+		Projeto projeto = ProjetoForm.converte(projetoNew); 
+				this.projetoRepository.save(projeto);
+		return ProjetoDto.converte(projeto);
 	}
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public ProjetoFormSaida atualizar(@RequestBody ProjetoFormEntrada formEntrada, @PathVariable Long id) {
+	public ProjetoDto editar(@PathVariable Long id, @RequestBody ProjetoForm projetoEdit) {
 		Projeto projeto = this.projetoRepository.findById(id).get();
-		projeto.setContratante(formEntrada.getContratante());
-		projeto.setDataInicio(formEntrada.getDataInicio());
-		projeto.setNome(formEntrada.getNome());
+		projeto.setNome(projetoEdit.getNome());
+		projeto.setDataInicio(projetoEdit.getDataInicio());
+		projeto.setContratante(projetoEdit.getNomeContratante());
 		
-		return ProjetoFormSaida.criarSaida(projeto);
+		return ProjetoDto.converte(projeto);
+	}
+	
+	@GetMapping("/{id}")
+	public Projeto buscar(@PathVariable long id) {
+		return this.projetoRepository.findById(id).get();
 	}
 	
 	@DeleteMapping("/{id}")

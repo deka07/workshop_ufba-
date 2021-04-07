@@ -20,13 +20,12 @@ public class Estado {
     @OneToMany(mappedBy = "estado")
     private List<Cidade> cidades;
 
-    public List<Cidade> getCidades() {
-        return cidades;
-    }
-
-    public void setCidades(List<Cidade> cidades) {
-        this.cidades = cidades;
-    }
+	/* Este bloco de comando estava fazendo com que as consultas de cidades ficassem em loop
+	 * 
+	 * public List<Cidade> getCidades() { return cidades; }
+	 * 
+	 * public void setCidades(List<Cidade> cidades) { this.cidades = cidades; }
+	 */
     
     public Estado() {}
     

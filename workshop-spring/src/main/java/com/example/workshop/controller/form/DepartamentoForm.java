@@ -1,12 +1,12 @@
-package com.example.workshop.form;
+package com.example.workshop.controller.form;
 
 import com.example.workshop.model.Departamento;
 
-public class DepartamentoFormEntrada {
-	
-	private String descricao;
-	
+public class DepartamentoForm {
 
+	private String descricao;
+
+	
 	public String getDescricao() {
 		return descricao;
 	}
@@ -15,12 +15,9 @@ public class DepartamentoFormEntrada {
 		this.descricao = descricao;
 	}
 
-	public Departamento criaDepartamento() {
-		return new Departamento(this.descricao);
+	public static Departamento converte(DepartamentoForm valorNew) {
+		return new Departamento(valorNew.getDescricao());
 	}
 	
 	
-	
-	
-
 }

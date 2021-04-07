@@ -15,8 +15,8 @@ public class Funcionario {
     @Column(name = "cpf_funcionario",length = 11, nullable = false)
     private String cpf;
     @ManyToOne
-    @JoinColumn(name = "id_departamento")
-    private Departamento departamento;
+    @JoinColumn(name = "id_cargo")
+    private Cargo cargo;
     @ManyToOne
     @JoinColumn(name="id_endereco")
     private Endereco endereco;
@@ -36,10 +36,10 @@ public class Funcionario {
 
 	Funcionario() {}
     
-    public Funcionario(String nome, String cpf, Departamento departamento, Endereco endereco) {
+    public Funcionario(String nome, String cpf, Cargo cargo, Endereco endereco) {
         this.nome = nome;
         this.cpf = cpf;
-        this.departamento = departamento;
+        this.cargo = cargo;
         this.endereco = endereco;
     }
 
@@ -52,12 +52,12 @@ public class Funcionario {
 		this.cpf = cpf;
 	}
 
-	public Departamento getDepartamento() {
-		return departamento;
+	public Cargo getCargo() {
+		return cargo;
 	}
 
-	public void setDepartamento(Departamento departamento) {
-		this.departamento = departamento;
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
 	}
 
 	public Long getId() {

@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.workshop.controller.dto.CargoDto;
+import com.example.workshop.controller.form.CargoForm;
 import com.example.workshop.data.CargoRepository;
-import com.example.workshop.form.CargoFormSaida;
-import com.example.workshop.form.CargoFormEntrada;
+import com.example.workshop.data.DepartamentoRepository;
 import com.example.workshop.model.Cargo;
 
 @RestController
@@ -26,34 +27,36 @@ public class CargoController {
 	@Autowired
 	private CargoRepository cargoRepository;
 	
+	@Autowired
+	private DepartamentoRepository departamentoRepository;
+	
 	@GetMapping
-	public List<CargoFormSaida>listar() {
+	public List<CargoDto> listar(){
 		List<Cargo> cargos = this.cargoRepository.findAll();
 		
-		return CargoFormSaida.converter(cargos);
+		return CargoDto.converteList(cargos);
 	}
 	
 	@PostMapping
 	@Transactional
-	public CargoFormSaida Salvar(@RequestBody CargoFormEntrada formEntrada) {
-		Cargo cargo = formEntrada.criarCargo();
+	public CargoDto salvar(@RequestBody CargoForm cargoNew) {
+		System.out.println("aqui");
+		Cargo cargo = CargoForm.converte(cargoNew, this.departamentoRepository);
 		this.cargoRepository.save(cargo);
-		return CargoFormSaida.criarSaida(cargo);
-	}
-	
-	@GetMapping("/{id}")
-	public CargoFormSaida Buscar(@PathVariable Long id) {
-		Cargo cargo = this.cargoRepository.findById(id).get();
-		
-		return CargoFormSaida.criarSaida(cargo);
+		return CargoDto.converte(cargo);
 	}
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public CargoFormSaida Atualizar(@RequestBody CargoFormEntrada formEntrada, @PathVariable Long id) {
+	public CargoDto editar(@PathVariable Long id, @RequestBody CargoForm cargoEdit) {
 		Cargo cargo = this.cargoRepository.findById(id).get();
-		cargo.setDescricao(formEntrada.getDescricao());
-		return CargoFormSaida.criarSaida(cargo);
+		cargo.setDescricao(cargoEdit.getDescricao());
+		return CargoDto.converte(cargo);
+	}
+	
+	@GetMapping("/{id}")
+	public CargoDto buscar(@PathVariable Long id) {
+		return CargoDto.converte(this.cargoRepository.findById(id).get());
 	}
 	
 	@DeleteMapping("/{id}")

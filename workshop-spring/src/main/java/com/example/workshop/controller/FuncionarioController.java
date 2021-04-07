@@ -12,15 +12,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.workshop.controller.dto.FuncionarioDto;
+import com.example.workshop.controller.form.FuncionarioForm;
 import com.example.workshop.data.CargoRepository;
-import com.example.workshop.data.DepartamentoRepository;
+import com.example.workshop.data.EnderecoRepository;
 import com.example.workshop.data.FuncionarioRepository;
-import com.example.workshop.form.FuncionarioFormEntrada;
-import com.example.workshop.form.FuncionarioFormSaida;
 import com.example.workshop.model.Cargo;
-import com.example.workshop.model.Departamento;
+import com.example.workshop.model.Endereco;
 import com.example.workshop.model.Funcionario;
 
 @RestController
@@ -31,55 +32,48 @@ public class FuncionarioController {
 	private FuncionarioRepository funcionarioRepository;
 	
 	@Autowired
-	private CargoRepository cargoRepository;
+	private EnderecoRepository enderecoRepository;
 	
 	@Autowired
-	private DepartamentoRepository departamentoRepository;
+	private CargoRepository cargoRepository;
+	
 	
 	@GetMapping
-	public List<FuncionarioFormSaida> Listar() {
-		List<Funcionario> funcionarios = this.funcionarioRepository.findAll();
-		
-		return FuncionarioFormSaida.converter(funcionarios);
+	public List<FuncionarioDto> listar(){
+		return FuncionarioDto.converteList(this.funcionarioRepository.findAll());
 	}
 	
 	@PostMapping
 	@Transactional
-	public FuncionarioFormSaida salvar(@RequestBody FuncionarioFormEntrada formEntrada){
-		Funcionario funcionario = formEntrada.criaFuncionario(this.cargoRepository, this.departamentoRepository);
+	public FuncionarioDto salvar(@RequestBody FuncionarioForm funcionarioNew) {
+		Funcionario funcionario = FuncionarioForm.converte(funcionarioNew, enderecoRepository, cargoRepository);
 		this.funcionarioRepository.save(funcionario);
-		
-		return FuncionarioFormSaida.criarSaida(funcionario);
-	}
-	
-	
-	@GetMapping("/{id}")
-	public FuncionarioFormSaida buscar(@PathVariable Long id) {
-		Funcionario funcionario = this.funcionarioRepository.findById(id).get();
-		
-		return FuncionarioFormSaida.criarSaida(funcionario);
+		return FuncionarioDto.converte(funcionario);
 	}
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public FuncionarioFormSaida atualizar(@PathVariable Long id, @RequestBody FuncionarioFormEntrada formEntrada) {
+	public FuncionarioDto editar(@PathVariable Long id, @RequestBody FuncionarioForm funcionarioEdit) {
 		Funcionario funcionario = this.funcionarioRepository.findById(id).get();
-		Cargo cargo = this.cargoRepository.findByDescricao(formEntrada.getCargo());
-		Departamento departamento = this.departamentoRepository.findByDescricao(formEntrada.getDepartamento());
+		Cargo cargo = this.cargoRepository.findById(funcionarioEdit.getIdCargo()).get();
+		Endereco endereco = this.enderecoRepository.findById(funcionarioEdit.getIdEndereco()).get();
 		
 		funcionario.setCargo(cargo);
-		funcionario.setDepartamento(departamento);
-		funcionario.setCpf(formEntrada.getCpf());
-		funcionario.setNome(formEntrada.getNome());
-		
-		return FuncionarioFormSaida.criarSaida(funcionario);
+		funcionario.setCpf(funcionarioEdit.getCpf_funcionario());
+		funcionario.setEndereco(endereco);
+		funcionario.setNome(funcionarioEdit.getNome_funcionario());
+		return FuncionarioDto.converte(funcionario);
+	}
+	
+	@GetMapping("/{id}")
+	public FuncionarioDto buscar(@PathVariable Long id) {
+		return FuncionarioDto.converte(this.funcionarioRepository.findById(id).get());
 	}
 	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
+	public void deletar(@PathVariable Long id) {
 		this.funcionarioRepository.deleteById(id);
 	}
-	
 	
 	
 	

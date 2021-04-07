@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -17,15 +15,12 @@ public class Departamento {
 	private Long id;
 	@Column(length = 100, nullable = false)
 	private String descricao;
-	@ManyToOne
-	@JoinColumn(name = "id_cargo")
-	private Cargo cargo;
+	
 	
 	public Departamento() {}
 	
-	public Departamento(String descricao, Cargo cargo) {
+	public Departamento(String descricao) {
 		this.descricao = descricao;
-		this.cargo = cargo;
 	}
 	
 	public String getDescricao() {
@@ -36,14 +31,6 @@ public class Departamento {
 	}
 	public Long getId() {
 		return id;
-	}
-
-	public Cargo getCargo() {
-		return cargo;
-	}
-
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
 	}
 	
 	

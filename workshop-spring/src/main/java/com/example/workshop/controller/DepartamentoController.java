@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.workshop.controller.dto.DepartamentoDto;
+import com.example.workshop.controller.form.DepartamentoForm;
 import com.example.workshop.data.DepartamentoRepository;
-
-import com.example.workshop.form.DepartamentoFormEntrada;
-import com.example.workshop.form.DepartamentoFormSaida;
 import com.example.workshop.model.Departamento;
 
 
@@ -30,38 +29,30 @@ public class DepartamentoController {
 	private DepartamentoRepository departamentoRepository;
 
 	@GetMapping
-	public List<DepartamentoFormSaida>listar() {
-		List<Departamento> departamentos = this.departamentoRepository.findAll();
-		
-		return DepartamentoFormSaida.converter(departamentos);
+	public List<DepartamentoDto>listar() {
+		return DepartamentoDto.converteList(this.departamentoRepository.findAll());
 	}
 	
 	@PostMapping
 	@Transactional
-	public DepartamentoFormSaida Salvar(@RequestBody DepartamentoFormEntrada formEntrada) {
-		Departamento departamento = formEntrada.criaDepartamento();
+	public DepartamentoDto salvar(@RequestBody DepartamentoForm departamentoNew) {
+		Departamento departamento = DepartamentoForm.converte(departamentoNew); 
 		this.departamentoRepository.save(departamento);
-		return DepartamentoFormSaida.criaSaida(departamento);
-		
-		
-	}
-	
-	@GetMapping("/{id}")
-	public DepartamentoFormSaida Buscar(@PathVariable Long id) {
-		Departamento departamento = this.departamentoRepository.findById(id).get();
-		
-		return DepartamentoFormSaida.criaSaida(departamento);
+		return DepartamentoDto.converte(departamento);
 	}
 	
 	@PutMapping("/{id}")
 	@Transactional
-	public DepartamentoFormSaida Atualizar(@PathVariable Long id, @RequestBody DepartamentoFormEntrada formEntrada) {
+	public DepartamentoDto editar(@PathVariable Long id, @RequestBody DepartamentoForm departamentoEdit) {
 		Departamento departamento = this.departamentoRepository.findById(id).get();
-		departamento.setDescricao(formEntrada.getDescricao());
-		
-		return DepartamentoFormSaida.criaSaida(departamento);
+		departamento.setDescricao(departamentoEdit.getDescricao());
+		return DepartamentoDto.converte(departamento);
 	}
 	
+	@GetMapping("/{id}")
+	public DepartamentoDto buscar(@PathVariable Long id) {
+		return DepartamentoDto.converte(this.departamentoRepository.findById(id).get());
+	}
 	
 	@DeleteMapping("/{id}")
 	public void Deletar(@PathVariable Long id) {
