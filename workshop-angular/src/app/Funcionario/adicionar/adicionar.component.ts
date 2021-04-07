@@ -1,3 +1,4 @@
+import { getTranslationDeclStmts } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Funcionario } from 'src/app/Modelo/Funcionario';
@@ -14,6 +15,42 @@ export class AdicionarComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+   
+  Departaments: Array<any> = [
+		{ name: 'A', cargos: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn']},
+		{ name: 'B', cargos: ['Barcelona']},
+		{ name: 'C', cargos: ['Downers Grove']},
+		{ name: 'D', cargos: ['Puebla']},
+		{ name: 'E', cargos: ['Delhi', 'Kolkata', 'Mumbai', 'Bangalore']},
+	];
+  cargos: Array<any> = []; 
+
+  changeDepartament(state: any) { 		
+		this.cargos = this.Departaments.find((stat: any) => stat.name == state.target.value).cargos; 
+	}  
+
+  // City Names
+  Types: any = ['Celular', 'Telefone', 'E-mail']
+
+  changeWebsite(e:any) {
+    console.log(e.target.value);
+  }
+
+
+  States: Array<any> = [
+		{ name: 'A', cities: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn']},
+		{ name: 'B', cities: ['Barcelona']},
+		{ name: 'C', cities: ['Downers Grove']},
+		{ name: 'D', cities: ['Puebla']},
+		{ name: 'E', cities: ['Delhi', 'Kolkata', 'Mumbai', 'Bangalore']},
+	];
+  cities: Array<any> = []; 
+
+  changeState(state: any) { 		
+		this.cities = this.States.find((stat: any) => stat.name == state.target.value).cities; 
+	}  
+
 
   Salvar(func:Funcionario){
     this.service.createFuncionario(func).subscribe(data=>{
