@@ -19,8 +19,8 @@
                       <td>{{func.nome}}</td>                      
                       <td>{{func.cpf}}</td> 
                       <td>
-                        <button class="btn btn-warning">Editar</button>
-                        <button class="btn btn-danger">Deletar</button>
+                        <button (click)="Editar(func)" class="btn btn-warning">Editar</button>
+                        <button (click)="Deletar(func)" class="btn btn-danger">Deletar</button>
                       </td>
                     </tr>
                 </tbody>
