@@ -19,5 +19,16 @@ export class ServiceService {
     return this.http.post<Funcionario>(this.Url,func)
   }
 
+  getFuncionarioId(id:number){
+    return this.http.get<Funcionario>(this.Url+"/"+id)
+  }
+
+  updateFuncionario(func:Funcionario){
+    return this.http.put<Funcionario>(this.Url+"/"+func.id,func)
+  }
+
+  deleteFuncionario(func:Funcionario){    
+    return this.http.delete<Funcionario>(this.Url+"/"+func.id)
+  }
 
 }
