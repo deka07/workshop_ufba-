@@ -1,5 +1,5 @@
 export class Funcionario{
     id!: number;
-    nome!: String;
-    cpf!: String;
+    nome_funcionario!: String;
+    cpf_funcionario!: String;
 }

@@ -16,8 +16,8 @@
                 <tbody>
                     <tr *ngFor="let func of funcionarios" class="text-center">
                       <td>{{func.id}}</td>
-                      <td>{{func.nome}}</td>                      
-                      <td>{{func.cpf}}</td> 
+                      <td>{{func.nome_funcionario}}</td>                      
+                      <td>{{func.cpf_funcionario}}</td> 
                       <td>
                         <button (click)="Editar(func)" class="btn btn-warning">Editar</button>
                         <button (click)="Deletar(func)" class="btn btn-danger">Deletar</button>
