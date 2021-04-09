@@ -1,6 +1,7 @@
 import { getTranslationDeclStmts } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Estado } from 'src/app/Modelo/Estado';
 import { Funcionario } from 'src/app/Modelo/Funcionario';
 import { ServiceService } from '../../../app/Service/service.service';
 
@@ -12,10 +13,14 @@ import { ServiceService } from '../../../app/Service/service.service';
 export class AdicionarComponent implements OnInit {
 
   constructor(private router:Router, private service:ServiceService){}
+  
+  estados: Estado[] = [];
+  funcionarios: Funcionario[] = [];
 
   ngOnInit(): void {
+    this.service.getEstados().subscribe(d => {this.estados = d;})  
+    this.service.getFuncionario().subscribe(d => {this.funcionarios = d;})    
   }
-
    
   Departaments: Array<any> = [
 		{ name: 'A', cargos: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn']},
@@ -26,7 +31,8 @@ export class AdicionarComponent implements OnInit {
 	];
   cargos: Array<any> = []; 
 
-  changeDepartament(state: any) { 		
+  changeDepartament(state: any) { 
+    console.log(this.estados);		
 		this.cargos = this.Departaments.find((stat: any) => stat.name == state.target.value).cargos; 
 	}  
 

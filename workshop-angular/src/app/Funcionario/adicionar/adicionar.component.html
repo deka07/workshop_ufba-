@@ -42,7 +42,7 @@
                     <label>Estado: </label>
                     <select placeholder="State" (change)="changeState($event)">
                         <option>-- Escolha o Estado -- </option>
-                        <option *ngFor="let state of States">{{state.name}}</option>
+                        <option *ngFor="let estado of estados">{{estado.descricao}}</option>
                     </select>
                 </div>
                 
