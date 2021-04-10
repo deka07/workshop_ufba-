@@ -7,11 +7,11 @@
             <form action="">
                 <div class="form-group">
                     <label for="">Nome:</label>
-                    <input type="text" class="form-control">
+                    <input type="text" id="NomeFuncionario" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">CPF:</label>
-                    <input type="text" class="form-control">
+                    <input type="text" id="CPFFuncionario" class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -26,7 +26,7 @@
 
                 <div class="form-group">
                     <label>Cargo: </label>
-                    <select placeholder="Cargo">
+                    <select placeholder="Cargo" id="CargoFuncionario">
                         <option>-- Escolha o Cargo --</option>
                         <option *ngFor="let cargo of cargos" value="{{cargo.id}}">
                             {{cargo.descricao}}
@@ -48,7 +48,7 @@
                 
                 <div class="form-group">
                     <label>Cidade: </label>
-                    <select placeholder="Cidade">
+                    <select placeholder="Cidade" id="CidadeFuncionario">
                         <option>-- Escolha a Cidade --</option>
                         <option *ngFor="let cidade of cidades" value="{{cidade.id}}">
                             {{cidade.nomeCidade}}
@@ -58,15 +58,15 @@
 
                 <div class="form-group">
                     <label for="">Rua:</label>
-                    <input type="text" class="form-control">
+                    <input type="text" id="RuaFuncionario" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Bairro:</label>
-                    <input type="text" class="form-control">
+                    <input type="text" id="BairroFuncionario" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="">Número:</label>
-                    <input type="text" class="form-control">
+                    <input type="text" id="NumeroFuncionario" class="form-control">
                 </div>         
                 <h2 class="text-left font-weight-bold">Contato</h2>                         
 
@@ -104,17 +104,38 @@
                             <tr *ngFor="let cont of contatos" class="text-center">                              
                               <td>{{cont.tipo}}</td>                      
                               <td>{{cont.campo}}</td> 
-                              <button (click)="DeletarContato(cont)" style="margin: 8px;" class="btn btn-danger">Deletar</button>                              
+                              <td><button (click)="DeletarContato(cont)" class="btn btn-danger">Deletar</button></td>                              
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <h2 class="text-left font-weight-bold">Projeto</h2>  
-                  
 
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="text-center">  
+                                <th></th>                            
+                                <th>NOME</th>                      
+                                <th>DATA</th>
+                                <th>CONTRATANTE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let proj of projetos" class="text-center">                                
+                                <td>
+                                  <input type="checkbox" value="proj.selecionado" (change)="CheckElement(proj)">
+                                </td>                                 
+                                <td>{{proj.nome}}</td>                      
+                                <td>{{proj.dataInicio}}</td> 
+                                <td>{{proj.nomeContratante}}</td>                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                <button class="btn btn-success" style="margin: 8px;">Salvar</button>    <!--Add Click SALVAR()-->           
+                <button (click)="Salvar()" class="btn btn-success" style="margin: 8px;">Salvar</button>    <!--Add Click SALVAR()-->           
             </form>
         </div>
     </div>
