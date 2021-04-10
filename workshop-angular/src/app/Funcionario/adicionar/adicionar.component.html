@@ -13,44 +13,46 @@
                     <label for="">CPF:</label>
                     <input type="text" class="form-control">
                 </div>
+
                 <div class="form-group">
-                    <label for="">Departamento:</label>
-                    <input type="text" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="">Cargo:</label>
-                    <input type="text" class="form-control">
-                </div>   
-                <div class="form-group">
-                    <label>Departamento: </label>
-                    <select placeholder="Department" (change)="changeDepartament($event)">
+                    <label>Departamento: </label> 
+                     <select placeholder="Departamento" (change)="changeDepartament($event)">
                         <option>-- Escolha o Departamento -- </option>
-                        <option *ngFor="let dep of Departaments">{{dep.name}}</option>
-                    </select>
-                </div>                
+                        <option *ngFor="let departamento of departamentos" value="{{departamento.id}}">                        
+                            {{ departamento.descricao }}
+                        </option>
+                      </select>
+                </div>
+
                 <div class="form-group">
                     <label>Cargo: </label>
                     <select placeholder="Cargo">
                         <option>-- Escolha o Cargo --</option>
-                        <option *ngFor="let car of cargos">{{car}}</option>
+                        <option *ngFor="let cargo of cargos" value="{{cargo.id}}">
+                            {{cargo.descricao}}
+                        </option>
                     </select>
                 </div>
-                
+
                 <h2 class="text-left font-weight-bold">Endereço</h2>                
             
                 <div class="form-group">
-                    <label>Estado: </label>
-                    <select placeholder="State" (change)="changeState($event)">
+                    <label>Estado: </label> 
+                     <select placeholder="Estado" (change)="changeState($event)">
                         <option>-- Escolha o Estado -- </option>
-                        <option *ngFor="let state of States">{{state.name}}</option>
-                    </select>
+                        <option *ngFor="let estado of estados" value="{{estado.id}}">                        
+                            {{ estado.descricao }}
+                        </option>
+                      </select>
                 </div>
                 
                 <div class="form-group">
                     <label>Cidade: </label>
-                    <select placeholder="City">
+                    <select placeholder="Cidade">
                         <option>-- Escolha a Cidade --</option>
-                        <option *ngFor="let city of cities">{{city}}</option>
+                        <option *ngFor="let cidade of cidades" value="{{cidade.id}}">
+                            {{cidade.nomeCidade}}
+                        </option>
                     </select>
                 </div>
 
@@ -67,19 +69,53 @@
                     <input type="text" class="form-control">
                 </div>         
                 <h2 class="text-left font-weight-bold">Contato</h2>                         
-                <div class="form-group">
-                    <label>Tipo: </label>
-                    <select placeholder="Tipo">
-                        <option>-- Escolha o Tipo -- </option>
-                        <option *ngFor="let x of Types">{{x}}</option>
-                    </select>
-                </div> 
-                <div class="form-group">
-                    <label for="">Campo:</label>
-                    <input type="text" class="form-control">
-                </div>   
+
+                <form>
+                    <div class="form-row align-items-center">
+                      <div class="col-sm-3 my-1">
+                        <label class="sr-only" for="inlineFormInputName">Tipo:</label>
+                        <select placeholder="Tipo">
+                            <option>-- Escolha o Tipo -- </option>
+                            <option *ngFor="let x of Types" value="{{x.tipo}}" >{{x.descricao}} </option>
+                        </select>
+                      </div>
+                      <div class="col-sm-3 my-1">
+                        <label class="sr-only" for="inlineFormInputGroupUsername">Campo:</label>
+                        <div class="input-group">                          
+                          <input type="text" class="form-control" id="inlineFormInputGroupUsername">
+                        </div>
+                      </div>
+                      <div class="col-auto my-1">
+                        <button (click)="addContact()" class="btn btn-light text-success"> ADD CONTATO </button>
+                      </div>
+                    </div>
+                </form>
+
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="text-center">
+                              <th>TIPO</th>
+                              <th>CAMPO</th>                                                    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cont of contatos" class="text-center">                              
+                              <td>{{cont.tipo}}</td>                      
+                              <td>{{cont.campo}}</td>                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="text-left font-weight-bold">Projeto</h2>  
+
+
+
                 <button class="btn btn-success" style="margin: 8px;">Salvar</button>    <!--Add Click SALVAR()-->           
             </form>
         </div>
     </div>
 </div>
+
+

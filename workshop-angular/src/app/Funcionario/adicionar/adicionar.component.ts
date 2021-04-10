@@ -1,7 +1,12 @@
 import { getTranslationDeclStmts } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Estado } from 'src/app/Modelo/Estado';
 import { Funcionario } from 'src/app/Modelo/Funcionario';
+import { Cidade } from 'src/app/Modelo/Cidade';
+import { Departamento } from 'src/app/Modelo/Departamento';
+import { Cargo } from 'src/app/Modelo/Cargo';
+import { Contato } from 'src/app/Modelo/Contato';
 import { ServiceService } from '../../../app/Service/service.service';
 
 @Component({
@@ -12,45 +17,35 @@ import { ServiceService } from '../../../app/Service/service.service';
 export class AdicionarComponent implements OnInit {
 
   constructor(private router:Router, private service:ServiceService){}
+  
+  estados: Estado[] = [];
+  cidades: Cidade[] = [];  
+  departamentos: Departamento[] = [];  
+  cargos: Cargo[] = [];
+  contatos: Contato[] = [];
+
+  Types: any = [
+    {tipo: 'C', descricao: 'Celular'},
+    {tipo: 'T', descricao: 'Telefone'},
+    {tipo: 'E', descricao: 'E-mail'}
+  ]
 
   ngOnInit(): void {
+    this.service.getEstados().subscribe(d => {this.estados = d;})       
+    this.service.getDepartamentos().subscribe(d => {this.departamentos = d;})  
   }
-
    
-  Departaments: Array<any> = [
-		{ name: 'A', cargos: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn']},
-		{ name: 'B', cargos: ['Barcelona']},
-		{ name: 'C', cargos: ['Downers Grove']},
-		{ name: 'D', cargos: ['Puebla']},
-		{ name: 'E', cargos: ['Delhi', 'Kolkata', 'Mumbai', 'Bangalore']},
-	];
-  cargos: Array<any> = []; 
+  changeDepartament(departamento: any) {          				
+    this.service.getCargoPorDepartamentoId(departamento.target.value).subscribe(d => {this.cargos = d;})
+	}   
 
-  changeDepartament(state: any) { 		
-		this.cargos = this.Departaments.find((stat: any) => stat.name == state.target.value).cargos; 
-	}  
-
-  // City Names
-  Types: any = ['Celular', 'Telefone', 'E-mail']
-
-  changeWebsite(e:any) {
-    console.log(e.target.value);
+  addContact(){
+    console.log((<HTMLInputElement>document.getElementById("inlineFormInputGroupUsername")).value);
   }
 
-
-  States: Array<any> = [
-		{ name: 'A', cities: ['Duesseldorf', 'Leinfelden-Echterdingen', 'Eschborn']},
-		{ name: 'B', cities: ['Barcelona']},
-		{ name: 'C', cities: ['Downers Grove']},
-		{ name: 'D', cities: ['Puebla']},
-		{ name: 'E', cities: ['Delhi', 'Kolkata', 'Mumbai', 'Bangalore']},
-	];
-  cities: Array<any> = []; 
-
-  changeState(state: any) { 		
-		this.cities = this.States.find((stat: any) => stat.name == state.target.value).cities; 
+  changeState(estado: any) {     
+    this.service.getCidadesPorEstadoId(estado.target.value).subscribe(d => {this.cidades = d;})
 	}  
-
 
   Salvar(func:Funcionario){
     this.service.createFuncionario(func).subscribe(data=>{
