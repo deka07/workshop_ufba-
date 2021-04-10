@@ -28,8 +28,8 @@ export class AdicionarComponent implements OnInit {
     {tipo: 'C', descricao: 'Celular'},
     {tipo: 'T', descricao: 'Telefone'},
     {tipo: 'E', descricao: 'E-mail'}
-  ]
-
+  ];
+ 
   ngOnInit(): void {
     this.service.getEstados().subscribe(d => {this.estados = d;})       
     this.service.getDepartamentos().subscribe(d => {this.departamentos = d;})  
@@ -39,13 +39,20 @@ export class AdicionarComponent implements OnInit {
     this.service.getCargoPorDepartamentoId(departamento.target.value).subscribe(d => {this.cargos = d;})
 	}   
 
-  addContact(){
-    console.log((<HTMLInputElement>document.getElementById("inlineFormInputGroupUsername")).value);
+  addContact(){    
+    this.contatos.push({tipo: 
+      (<HTMLInputElement>document.getElementById("TipoContato")).value == 'C' ? 'Celular' :
+      (<HTMLInputElement>document.getElementById("TipoContato")).value == 'E' ? 'E-mail' : 'Telefone',
+      campo: (<HTMLInputElement>document.getElementById("CampoContato")).value});          
   }
 
   changeState(estado: any) {     
     this.service.getCidadesPorEstadoId(estado.target.value).subscribe(d => {this.cidades = d;})
 	}  
+
+  DeletarContato(contato: any){
+    this.contatos = this.contatos.filter(obj => obj.campo !== contato.campo && obj.tipo !== contato.tipo);
+  }
 
   Salvar(func:Funcionario){
     this.service.createFuncionario(func).subscribe(data=>{
