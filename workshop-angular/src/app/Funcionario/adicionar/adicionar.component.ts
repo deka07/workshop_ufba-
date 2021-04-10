@@ -82,11 +82,14 @@ export class AdicionarComponent implements OnInit {
     var lContatos = this.contatos.map(x => ({ 
       tipo: x.tipo == 'Celular' ? 'C' : x.tipo == 'Telefone' ? 'T' : 'E', campo: x.campo}))
 
-    var lProjetos = this.projetos.filter(x => x.selecionado == true).map(x => ({ 
-      id: x.id, nome: x.nome, dataInicio: x.dataInicio, nomeContratante: x.nomeContratante}))
+    var lProjetos = this.projetos.filter(x => x.selecionado == true);
+    var larrayProjetos = []
+    for (let entry of lProjetos) {
+      larrayProjetos.push(entry.id);
+    }
 
     var newEndereco: Endereco = new Endereco(+lCidadeTela,lRuaFuncionario,lBairroFuncionario,lNumeroFuncionario);
-    var newFuncionario: Funcionario = new Funcionario(lNomeFuncionario,lCPFFuncionario,+lCargoTela,newEndereco,lContatos,lProjetos)
+    var newFuncionario: Funcionario = new Funcionario(lNomeFuncionario,lCPFFuncionario,+lCargoTela,newEndereco,lContatos,larrayProjetos)
 
     console.log(newFuncionario);
 
