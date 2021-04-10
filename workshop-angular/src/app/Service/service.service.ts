@@ -5,6 +5,7 @@ import { Estado } from '../Modelo/Estado';
 import { Cidade } from '../Modelo/Cidade';
 import { Departamento } from '../Modelo/Departamento';
 import { Cargo } from '../Modelo/Cargo';
+import { Projeto } from '../Modelo/Projeto';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,9 @@ export class ServiceService {
 
   UrlDepartamento = 'http://localhost:4200/api/departamentos'
 
-  UrlCargo = 'http://localhost:4200/api/cargos/departamento'    
+  UrlCargo = 'http://localhost:4200/api/cargos/departamento'   
+  
+  UrlProjetos = 'http://localhost:4200/api/projetos'  
 
   getEstados(){    
     return this.http.get<Estado[]>(this.UrlEstados)
@@ -31,6 +34,10 @@ export class ServiceService {
 
   getCidadesPorEstadoId(id:number){
     return this.http.get<Cidade[]>(this.UrlCidades+"/"+id)
+  }
+
+  getProjetos(){
+    return this.http.get<Projeto[]>(this.UrlProjetos)
   }
 
   getDepartamentos(){    

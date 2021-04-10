@@ -74,7 +74,7 @@
                     <div class="form-row align-items-center">
                       <div class="col-sm-3 my-1">
                         <label class="sr-only" for="inlineFormInputName">Tipo:</label>
-                        <select placeholder="Tipo">
+                        <select placeholder="Tipo" id="TipoContato">
                             <option>-- Escolha o Tipo -- </option>
                             <option *ngFor="let x of Types" value="{{x.tipo}}" >{{x.descricao}} </option>
                         </select>
@@ -82,7 +82,7 @@
                       <div class="col-sm-3 my-1">
                         <label class="sr-only" for="inlineFormInputGroupUsername">Campo:</label>
                         <div class="input-group">                          
-                          <input type="text" class="form-control" id="inlineFormInputGroupUsername">
+                          <input type="text" class="form-control" id="CampoContato">
                         </div>
                       </div>
                       <div class="col-auto my-1">
@@ -96,20 +96,22 @@
                         <thead>
                             <tr class="text-center">
                               <th>TIPO</th>
-                              <th>CAMPO</th>                                                    
+                              <th>CAMPO</th>   
+                              <th></th>                                                    
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let cont of contatos" class="text-center">                              
                               <td>{{cont.tipo}}</td>                      
-                              <td>{{cont.campo}}</td>                               
+                              <td>{{cont.campo}}</td> 
+                              <button (click)="DeletarContato(cont)" style="margin: 8px;" class="btn btn-danger">Deletar</button>                              
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
                 <h2 class="text-left font-weight-bold">Projeto</h2>  
-
+                  
 
 
                 <button class="btn btn-success" style="margin: 8px;">Salvar</button>    <!--Add Click SALVAR()-->           
