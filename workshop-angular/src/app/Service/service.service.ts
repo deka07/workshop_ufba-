@@ -3,8 +3,8 @@ import {HttpClient} from '@angular/common/http';
 import { Funcionario } from '../Modelo/Funcionario';
 import { Estado } from '../Modelo/Estado';
 import { Cidade } from '../Modelo/Cidade';
-//import { Departamento } from '../Modelo/Departamento';
-//import { Cargo } from '../Modelo/Cargo';
+import { Departamento } from '../Modelo/Departamento';
+import { Cargo } from '../Modelo/Cargo';
 
 @Injectable({
   providedIn: 'root'
@@ -15,15 +15,15 @@ export class ServiceService {
 
   Url = 'http://localhost:4200/api/'
   
-  UrlFuncionarios='Url'+'funcionarios'
+  UrlFuncionarios='http://localhost:4200/api/funcionarios'
   
-  UrlEstados = 'Url'+'estados'
+  UrlEstados = 'http://localhost:4200/api/estados'
 
-  UrlCidades = 'Url'+'cidades/estado'
+  UrlCidades = 'http://localhost:4200/api/cidades/estado'
 
-  UrlDepartamento = 'Url'+'departamentos'
+  UrlDepartamento = 'http://localhost:4200/api/departamentos'
 
-  UrlCargo = 'Url'+'cargos/departamento'    
+  UrlCargo = 'http://localhost:4200/api/cargos/departamento'    
 
   getEstados(){    
     return this.http.get<Estado[]>(this.UrlEstados)
@@ -33,14 +33,13 @@ export class ServiceService {
     return this.http.get<Cidade[]>(this.UrlCidades+"/"+id)
   }
 
-  /*getDepartamentos(){    
+  getDepartamentos(){    
     return this.http.get<Departamento[]>(this.UrlDepartamento)
-  }*/
-  /*
+  }  
 
   getCargoPorDepartamentoId(id:number){
     return this.http.get<Cargo[]>(this.UrlCargo+"/"+id)
-  }*/
+  }
 
   getFuncionario(){
     return this.http.get<Funcionario[]>(this.UrlFuncionarios)
