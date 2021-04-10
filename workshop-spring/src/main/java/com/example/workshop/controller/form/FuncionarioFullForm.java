@@ -5,11 +5,14 @@ import java.util.List;
 
 import com.example.workshop.data.CargoRepository;
 import com.example.workshop.data.CidadeRepository;
+import com.example.workshop.data.FuncionarioRepository;
+import com.example.workshop.data.ProjetoRepository;
 import com.example.workshop.model.Cargo;
 import com.example.workshop.model.Cidade;
 import com.example.workshop.model.Contato;
 import com.example.workshop.model.Endereco;
 import com.example.workshop.model.Funcionario;
+import com.example.workshop.model.Projeto;
 
 public class FuncionarioFullForm {
 
@@ -18,7 +21,18 @@ public class FuncionarioFullForm {
 	private Long idCargo;
 	private EnderecoForm endereco;
 	private List<ContatoForm> contatos;
+	private List<Long> idProjetos;
 	
+	
+	
+	public List<Long> getIdProjetos() {
+		return idProjetos;
+	}
+
+	public void setIdProjetos(List<Long> idProjetos) {
+		this.idProjetos = idProjetos;
+	}
+
 	public String getNome_funcionario() {
 		return nome_funcionario;
 	}
@@ -77,6 +91,18 @@ public class FuncionarioFullForm {
 		
 		return contatos;
 	}
+
+	public static void adiionaProjetos(Funcionario funcionario, FuncionarioFullForm funcionarioNew, ProjetoRepository projetoRepository) {
+		List<Projeto> projetos = new ArrayList<Projeto>();
+		funcionarioNew.idProjetos.forEach(idProjeto -> {
+			Projeto projeto = projetoRepository.findById(idProjeto).get();
+			projetos.add(projeto);
+		});
+		
+		funcionario.setProjeto(projetos);
+	}
+	
+	
 	
 	
 }

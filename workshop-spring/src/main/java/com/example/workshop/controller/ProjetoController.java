@@ -1,5 +1,6 @@
 package com.example.workshop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.workshop.controller.dto.ProjetoDto;
+import com.example.workshop.controller.form.AddFuncionarioForm;
 import com.example.workshop.controller.form.ProjetoForm;
+import com.example.workshop.data.FuncionarioRepository;
 import com.example.workshop.data.ProjetoRepository;
+import com.example.workshop.model.Funcionario;
 import com.example.workshop.model.Projeto;
 
 @RestController
@@ -25,6 +29,9 @@ public class ProjetoController {
 
 	@Autowired
 	private ProjetoRepository projetoRepository;
+	
+	@Autowired
+	private FuncionarioRepository funcionarioRepository;
 	
 	@GetMapping
 	public List<ProjetoDto> listar() {
@@ -59,6 +66,17 @@ public class ProjetoController {
 	@DeleteMapping("/{id}")
 	public void Deletar(@PathVariable Long id) {
 		this.projetoRepository.deleteById(id);
+	}
+	
+	@PostMapping("{idProjeto}/add/funcionario")
+	@Transactional
+	public Funcionario teste(@PathVariable Long idProjeto, @RequestBody AddFuncionarioForm addFuncionario) {
+		Projeto projeto = this.projetoRepository.findById(idProjeto).get();
+		Funcionario funcionario = this.funcionarioRepository.findById(addFuncionario.getIdFuncionario()).get();
+		List<Projeto> projetoList = new ArrayList<>();
+		projetoList.add(projeto);
+		funcionario.addProjeto(projetoList);
+		return funcionario;
 	}
 	
 	

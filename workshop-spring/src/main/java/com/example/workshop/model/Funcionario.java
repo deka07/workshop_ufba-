@@ -89,5 +89,9 @@ public class Funcionario {
 		this.projeto = projeto;
 	}
 	
+	public void addProjeto(List<Projeto> projeto) {
+		this.projeto.addAll(projeto);
+	}
+	
 	
 }
