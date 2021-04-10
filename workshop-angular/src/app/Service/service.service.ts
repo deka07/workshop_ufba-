@@ -20,20 +20,32 @@ export class ServiceService {
   
   UrlEstados = 'http://localhost:4200/api/estados'
 
-  UrlCidades = 'http://localhost:4200/api/cidades/estado'
+  UrlCidadesEstado = 'http://localhost:4200/api/cidades/estado'
+
+  UrlCidades = 'http://localhost:4200/api/cidades'
 
   UrlDepartamento = 'http://localhost:4200/api/departamentos'
 
-  UrlCargo = 'http://localhost:4200/api/cargos/departamento'   
+  UrlCargos = 'http://localhost:4200/api/cargos/departamento'   
   
   UrlProjetos = 'http://localhost:4200/api/projetos'  
+
+  UrlCargo = 'http://localhost:4200/api/cargos'
 
   getEstados(){    
     return this.http.get<Estado[]>(this.UrlEstados)
   }
 
+  getCidadePorId(id:number){
+    return this.http.get<Cidade>(this.UrlCidades+"/"+id)
+  }
+
+  getCargoPorId(id:number){
+    return this.http.get<Cidade>(this.UrlCargo+"/"+id)
+  }
+
   getCidadesPorEstadoId(id:number){
-    return this.http.get<Cidade[]>(this.UrlCidades+"/"+id)
+    return this.http.get<Cidade[]>(this.UrlCidadesEstado+"/"+id)
   }
 
   getProjetos(){
@@ -45,7 +57,7 @@ export class ServiceService {
   }  
 
   getCargoPorDepartamentoId(id:number){
-    return this.http.get<Cargo[]>(this.UrlCargo+"/"+id)
+    return this.http.get<Cargo[]>(this.UrlCargos+"/"+id)
   }
 
   getFuncionario(){
