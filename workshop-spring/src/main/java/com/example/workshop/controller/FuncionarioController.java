@@ -17,10 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.workshop.controller.dto.FuncionarioDto;
 import com.example.workshop.controller.form.FuncionarioForm;
+import com.example.workshop.controller.form.FuncionarioFullForm;
 import com.example.workshop.data.CargoRepository;
+import com.example.workshop.data.CidadeRepository;
+import com.example.workshop.data.ContatoRepository;
 import com.example.workshop.data.EnderecoRepository;
 import com.example.workshop.data.FuncionarioRepository;
 import com.example.workshop.model.Cargo;
+import com.example.workshop.model.Contato;
 import com.example.workshop.model.Endereco;
 import com.example.workshop.model.Funcionario;
 
@@ -36,6 +40,12 @@ public class FuncionarioController {
 	
 	@Autowired
 	private CargoRepository cargoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRepository;
+	
+	@Autowired
+	private ContatoRepository contatoRepository;
 	
 	
 	@GetMapping
@@ -73,6 +83,20 @@ public class FuncionarioController {
 	@DeleteMapping("/{id}")
 	public void deletar(@PathVariable Long id) {
 		this.funcionarioRepository.deleteById(id);
+	}
+	
+	@PostMapping("/full")
+	@Transactional
+	public FuncionarioDto salvarCompleto(@RequestBody FuncionarioFullForm funcionarioNew) {
+		Endereco endereco = FuncionarioFullForm.converteEndereco(funcionarioNew, cidadeRepository);
+		Funcionario funcionario = FuncionarioFullForm.converteFuncionario(funcionarioNew, endereco, cargoRepository);
+		List<Contato> contatos = FuncionarioFullForm.converteContatos(funcionarioNew, funcionario);
+		
+		this.enderecoRepository.save(endereco);
+		this.funcionarioRepository.save(funcionario);
+		this.contatoRepository.saveAll(contatos);
+		
+		return FuncionarioDto.converte(funcionario);
 	}
 	
 	

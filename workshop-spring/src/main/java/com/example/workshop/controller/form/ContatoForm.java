@@ -8,7 +8,7 @@ import com.example.workshop.model.TipoContato;
 public class ContatoForm {
 	
 	private Long id_funcionario;
-	private String numero;
+	private String campo;
 	private char tipo;
 	
 	public Long getId_funcionario() {
@@ -19,12 +19,12 @@ public class ContatoForm {
 		this.id_funcionario = id_funcionario;
 	}
 	
-	public String getNumero() {
-		return numero;
+	public String getCampo() {
+		return campo;
 	}
 	
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setCampo(String campo) {
+		this.campo = campo;
 	}
 	
 	public char getTipo() {
@@ -40,12 +40,14 @@ public class ContatoForm {
 			return TipoContato.CELULAR;
 		if(valor == 't' || valor == 'T')
 			return TipoContato.TELEFONE;
+		if(valor == 'e' || valor == 'E')
+			return TipoContato.EMAIL;
 		return TipoContato.NAO_ESPECIFICADO;
 	}
 	
 	public static Contato converte(ContatoForm valorNew, FuncionarioRepository funcionarioRep) {
 		Funcionario funcionario = funcionarioRep.findById(valorNew.getId_funcionario()).get();
-		return new Contato(funcionario, valorNew.getNumero(), ContatoForm.converteTipo(valorNew.getTipo()));
+		return new Contato(funcionario, valorNew.getCampo(), ContatoForm.converteTipo(valorNew.getTipo()));
 	}
 	
 	

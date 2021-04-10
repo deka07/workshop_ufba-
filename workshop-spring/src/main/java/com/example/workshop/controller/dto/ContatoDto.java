@@ -12,15 +12,15 @@ public class ContatoDto {
 	private Long id;
 	private String nome_funcionario;
 	private String cpf_funcionario;
-	private String numero;
+	private String campo;
 	private TipoContato tipo;
 	
 	
-	public ContatoDto(Long id, Funcionario funcionario, String numero, TipoContato tipo) {
+	public ContatoDto(Long id, Funcionario funcionario, String campo, TipoContato tipo) {
 		this.id = id;
 		this.nome_funcionario = funcionario.getNome();
 		this.cpf_funcionario = funcionario.getCpf();
-		this.numero = numero;
+		this.campo = campo;
 		this.tipo = tipo;
 	}
 
@@ -36,8 +36,8 @@ public class ContatoDto {
 		return cpf_funcionario;
 	}
 
-	public String getNumero() {
-		return numero;
+	public String getCampo() {
+		return campo;
 	}
 	
 	public TipoContato getTipo() {

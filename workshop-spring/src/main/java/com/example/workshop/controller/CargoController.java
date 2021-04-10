@@ -63,5 +63,11 @@ public class CargoController {
 	public void Deletar(@PathVariable Long id) {
 		this.cargoRepository.deleteById(id);
 	}
+	
+	@GetMapping("/departamento/{id}")
+	public List<CargoDto> buscarPorDepartamento(@PathVariable Long id) {
+		List<Cargo> cargolist = this.cargoRepository.findAllByDepartamento_id(id);
+		return CargoDto.converteList(cargolist);
+	}
 
 }

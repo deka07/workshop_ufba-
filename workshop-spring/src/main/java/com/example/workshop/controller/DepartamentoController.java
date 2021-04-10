@@ -20,14 +20,12 @@ import com.example.workshop.controller.form.DepartamentoForm;
 import com.example.workshop.data.DepartamentoRepository;
 import com.example.workshop.model.Departamento;
 
-
 @RestController
-@RequestMapping("departamentos")
+@RequestMapping("/departamentos")
 public class DepartamentoController {
 	
 	@Autowired
 	private DepartamentoRepository departamentoRepository;
-
 	@GetMapping
 	public List<DepartamentoDto>listar() {
 		return DepartamentoDto.converteList(this.departamentoRepository.findAll());

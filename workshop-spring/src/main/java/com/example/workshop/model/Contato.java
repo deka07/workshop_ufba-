@@ -21,7 +21,7 @@ public class Contato {
 	@ManyToOne
 	@JoinColumn(name = "id_funcionario")
 	private Funcionario funcionario;
-	@Column(length = 60, nullable = false)
+	@Column(length = 110, nullable = false)
 	private String numero;
 	@Enumerated(EnumType.STRING)
 	private TipoContato tipo;

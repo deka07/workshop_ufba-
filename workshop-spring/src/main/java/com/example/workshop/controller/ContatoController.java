@@ -51,7 +51,7 @@ public class ContatoController {
 		Contato contato = this.contatoRepository.findById(id).get();
 		Funcionario funcionario = this.funcionarioRepository.findById(contatoEdit.getId_funcionario()).get();
 		contato.setFuncionario(funcionario);
-		contato.setNumero(contatoEdit.getNumero());
+		contato.setNumero(contatoEdit.getCampo());
 		contato.setTipo(ContatoForm.converteTipo(contatoEdit.getTipo()));
 		
 		return ContatoDto.converte(contato);

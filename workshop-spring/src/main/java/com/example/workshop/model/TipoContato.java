@@ -4,6 +4,7 @@ public enum TipoContato {
 
 	CELULAR,
 	NAO_ESPECIFICADO,
-	TELEFONE;
+	TELEFONE,
+	EMAIL;
 	
 }
