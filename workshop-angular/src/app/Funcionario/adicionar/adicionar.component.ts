@@ -4,8 +4,9 @@ import { Router } from '@angular/router';
 import { Estado } from 'src/app/Modelo/Estado';
 import { Funcionario } from 'src/app/Modelo/Funcionario';
 import { Cidade } from 'src/app/Modelo/Cidade';
-//import { Departamento } from 'src/app/Modelo/Departamento';
-/*import { Cargo } from 'src/app/Modelo/Cargo';*/
+import { Departamento } from 'src/app/Modelo/Departamento';
+import { Cargo } from 'src/app/Modelo/Cargo';
+import { Contato } from 'src/app/Modelo/Contato';
 import { ServiceService } from '../../../app/Service/service.service';
 
 @Component({
@@ -19,25 +20,30 @@ export class AdicionarComponent implements OnInit {
   
   estados: Estado[] = [];
   cidades: Cidade[] = [];  
+  departamentos: Departamento[] = [];  
+  cargos: Cargo[] = [];
+  contatos: Contato[] = [];
 
   Types: any = [
-    {enum: 'C', descricao: 'Celular'},
-    {enum: 'T', descricao: 'Telefone'},
-    {enum: 'E', descricao: 'E-mail'}
+    {tipo: 'C', descricao: 'Celular'},
+    {tipo: 'T', descricao: 'Telefone'},
+    {tipo: 'E', descricao: 'E-mail'}
   ]
 
   ngOnInit(): void {
     this.service.getEstados().subscribe(d => {this.estados = d;})       
-    //this.service.getDepartamentos().subscribe(d => {this.departamentos = d;})  
+    this.service.getDepartamentos().subscribe(d => {this.departamentos = d;})  
   }
    
-  changeDepartament(departamento: any) {     
-    console.log(departamento.target.value);    				
-    this.service.getCidadesPorEstadoId(departamento.target.value).subscribe(d => {this.cidades = d;})
+  changeDepartament(departamento: any) {          				
+    this.service.getCargoPorDepartamentoId(departamento.target.value).subscribe(d => {this.cargos = d;})
 	}   
 
-  changeState(estado: any) {
-    console.log(estado.target.value);    
+  addContact(){
+    console.log((<HTMLInputElement>document.getElementById("inlineFormInputGroupUsername")).value);
+  }
+
+  changeState(estado: any) {     
     this.service.getCidadesPorEstadoId(estado.target.value).subscribe(d => {this.cidades = d;})
 	}  
 

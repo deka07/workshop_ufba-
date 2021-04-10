@@ -13,27 +13,26 @@
                     <label for="">CPF:</label>
                     <input type="text" class="form-control">
                 </div>
-                <!--
+
                 <div class="form-group">
                     <label>Departamento: </label> 
                      <select placeholder="Departamento" (change)="changeDepartament($event)">
                         <option>-- Escolha o Departamento -- </option>
                         <option *ngFor="let departamento of departamentos" value="{{departamento.id}}">                        
-                            {{ departamento.nomeDepartamento }}
+                            {{ departamento.descricao }}
                         </option>
                       </select>
                 </div>
 
                 <div class="form-group">
-                    <label>Cidade: </label>
-                    <select placeholder="City">
-                        <option>-- Escolha a Cargo --</option>
+                    <label>Cargo: </label>
+                    <select placeholder="Cargo">
+                        <option>-- Escolha o Cargo --</option>
                         <option *ngFor="let cargo of cargos" value="{{cargo.id}}">
-                            {{ cargo.descricao }}
+                            {{cargo.descricao}}
                         </option>
                     </select>
                 </div>
-                -->
 
                 <h2 class="text-left font-weight-bold">Endereço</h2>                
             
@@ -70,46 +69,47 @@
                     <input type="text" class="form-control">
                 </div>         
                 <h2 class="text-left font-weight-bold">Contato</h2>                         
-                
-                <div class="form-group">
-                    <label>Tipo: </label>
-                    <select placeholder="Tipo">
-                        <option>-- Escolha o Tipo -- </option>
-                        <option *ngFor="let x of Types" value="{{x.enum}}" >{{x.descricao}} </option>
-                    </select>
-                </div> 
-                <div class="form-group">
-                    <label for="">Campo:</label>
-                    <input type="text" class="form-control">
-                </div>   
+
+                <form>
+                    <div class="form-row align-items-center">
+                      <div class="col-sm-3 my-1">
+                        <label class="sr-only" for="inlineFormInputName">Tipo:</label>
+                        <select placeholder="Tipo">
+                            <option>-- Escolha o Tipo -- </option>
+                            <option *ngFor="let x of Types" value="{{x.tipo}}" >{{x.descricao}} </option>
+                        </select>
+                      </div>
+                      <div class="col-sm-3 my-1">
+                        <label class="sr-only" for="inlineFormInputGroupUsername">Campo:</label>
+                        <div class="input-group">                          
+                          <input type="text" class="form-control" id="inlineFormInputGroupUsername">
+                        </div>
+                      </div>
+                      <div class="col-auto my-1">
+                        <button (click)="addContact()" class="btn btn-light text-success"> ADD CONTATO </button>
+                      </div>
+                    </div>
+                </form>
+
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr class="text-center">
+                              <th>TIPO</th>
+                              <th>CAMPO</th>                                                    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cont of contatos" class="text-center">                              
+                              <td>{{cont.tipo}}</td>                      
+                              <td>{{cont.campo}}</td>                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
                 <h2 class="text-left font-weight-bold">Projeto</h2>  
 
-          <!--
-                    <div class="row" style="margin-bottom: 40px;">
-                      <div class="col">
-                        <form id="demoform">
-                          <select multiple="multiple" size="10" name="duallistbox_demo1[]" title="duallistbox_demo1[]">
-                      <option value="payee1">Aviva Insurance - Business - 987654</option>
-                      <option value="payee2">Bell Mobility - 66853 (John Smith)</option>
-                      <option value="payee3">Bell Mobility - 75432 (Jane Smith)</option>
-                      <option value="payee4">Bell Mobility - 98765 (Jim Smith)</option>
-                      <option value="payee5">Canadian Tire Commercial Mastercard - **** 5525</option>
-                      <option value="payee6">Canadian Tire Mastercard - **** 3158 (President's Card)</option>
-                      <option value="payee7">FedEx Express Canada - 54321</option>
-                      <option value="payee8">Lowes Canada - 12345</option>
-                      <option value="payee9">Mastercard, PC Financial - **** 5535</option>
-                      <option value="payee10">Qtrade Investor - 12345</option>
-                      <option value="payee11" selected="selected">Servus Mastercard - **** 5545</option>
-                      <option value="payee12">Telus - 123456787 (Calagary  Office)</option>
-                      <option value="payee13">Telus - 123456788 (Edmonton NW Office)</option>
-                      <option value="payee14">Telus - 123456789 (Edmonton SE Office)</option>
-                    </select>
-                    
-                    </div>
-                </div>
-
--->
 
 
                 <button class="btn btn-success" style="margin: 8px;">Salvar</button>    <!--Add Click SALVAR()-->           
@@ -117,3 +117,5 @@
         </div>
     </div>
 </div>
+
+
