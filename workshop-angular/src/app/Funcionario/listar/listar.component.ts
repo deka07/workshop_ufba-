@@ -19,7 +19,7 @@ export class ListarComponent implements OnInit {
 
   Editar(funcionario:Funcionario):void{
     localStorage.setItem("id",funcionario.id.toString());
-    this.router.navigate(["edit"]);
+    this.router.navigate(["editar"]);
   }
 
   Deletar(funcionario:Funcionario){

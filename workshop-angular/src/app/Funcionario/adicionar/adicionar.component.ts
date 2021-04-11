@@ -93,9 +93,13 @@ export class AdicionarComponent implements OnInit {
 
     console.log(newFuncionario);
 
-    /*this.service.createFuncionario(func).subscribe(data=>{
+    var obj = JSON.stringify(newFuncionario);
+
+    console.log(obj);
+
+    this.service.createFuncionarioFull(newFuncionario).subscribe(data=>{
       alert("Funcionario cadastrado com Sucesso!");
       this.router.navigate(["listar"])
-    });*/
+    });
   }
 }
