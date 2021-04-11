@@ -1,5 +1,3 @@
-import { Cidade } from "./Cidade";
-
 export class Endereco{
     id!: number;
     idCidade!: number;    

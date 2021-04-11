@@ -16,7 +16,9 @@ export class ServiceService {
 
   Url = 'http://localhost:4200/api/'
   
-  UrlFuncionarios='http://localhost:4200/api/funcionarios'
+  UrlFuncionarios = 'http://localhost:4200/api/funcionarios'
+
+  UrlFuncionariosFull = 'http://localhost:4200/api/funcionarios/full'
   
   UrlEstados = 'http://localhost:4200/api/estados'
 
@@ -68,8 +70,12 @@ export class ServiceService {
     return this.http.post<Funcionario>(this.UrlFuncionarios,func)
   }
 
+  createFuncionarioFull(func:Funcionario){
+    return this.http.post<Funcionario>(this.UrlFuncionariosFull,func)
+  }
+
   getFuncionarioId(id:number){
-    return this.http.get<Funcionario>(this.UrlFuncionarios+"/"+id)
+    return this.http.get<any>(this.UrlFuncionarios+"/"+id)
   }
 
   updateFuncionario(func:Funcionario){
