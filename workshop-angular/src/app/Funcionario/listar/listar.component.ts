@@ -14,7 +14,9 @@ export class ListarComponent implements OnInit {
   constructor(private service:ServiceService, private router:Router) { }
 
   ngOnInit(): void {
-    this.service.getFuncionario().subscribe(d => {this.funcionarios = d;})
+    this.service.getFuncionario().subscribe(d => {
+      this.funcionarios = d.sort((a, b) => (a.nome_funcionario > b.nome_funcionario ? 1 : -1));
+    })    
   }
 
   Editar(funcionario:Funcionario):void{
@@ -23,7 +25,7 @@ export class ListarComponent implements OnInit {
   }
 
   Deletar(funcionario:Funcionario){
-    this.service.deleteFuncionario(funcionario)
+    this.service.deleteFuncionario(funcionario.id)
     .subscribe(d => {
       this.funcionarios = this.funcionarios.filter(p=>p!==funcionario);
       alert("Funcionário Deletado")

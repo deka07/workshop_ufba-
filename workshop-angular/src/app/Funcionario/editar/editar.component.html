@@ -38,7 +38,7 @@
             
                 <div class="form-group">
                     <label>Estado: </label> 
-                     <select placeholder="Estado" (change)="changeState($event)">
+                     <select placeholder="Estado" id="EstadoFuncionario" (change)="changeState($event)">
                         <option>-- Escolha o Estado -- </option>
                         <option *ngFor="let estado of estados" value="{{estado.id}}">                        
                             {{ estado.descricao }}
@@ -125,8 +125,8 @@
                         <tbody>
                             <tr *ngFor="let proj of projetos" class="text-center">                                
                                 <td>
-                                  <input type="checkbox" value="proj.selecionado" (change)="CheckElement(proj)">
-                                </td>                                 
+                                  <input type="checkbox" [checked]="proj.selecionado" (change)="CheckElement(proj)">
+                                </td>                                                                    
                                 <td>{{proj.nome}}</td>                      
                                 <td>{{proj.dataInicio}}</td> 
                                 <td>{{proj.nomeContratante}}</td>                               
