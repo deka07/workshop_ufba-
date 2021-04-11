@@ -6,16 +6,14 @@
         <div class="card-body">
             <table class="table table-hover">
                 <thead>
-                    <tr class="text-center">
-                      <th>ID</th>
+                    <tr class="text-center">                      
                       <th>NOME</th>                      
                       <th>CPF</th>
                       <th>AÇÕES</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let func of funcionarios" class="text-center">
-                      <td>{{func.id}}</td>
+                    <tr *ngFor="let func of funcionarios" class="text-center">                      
                       <td>{{func.nome_funcionario}}</td>                      
                       <td>{{func.cpf_funcionario}}</td> 
                       <td>
