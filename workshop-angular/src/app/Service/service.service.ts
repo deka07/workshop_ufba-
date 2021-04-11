@@ -38,6 +38,10 @@ export class ServiceService {
     return this.http.get<Estado[]>(this.UrlEstados)
   }
 
+  getCidades(){    
+    return this.http.get<Cidade[]>(this.UrlCidades)
+  }
+
   getCidadePorId(id:number){
     return this.http.get<Cidade>(this.UrlCidades+"/"+id)
   }
@@ -57,6 +61,10 @@ export class ServiceService {
   getDepartamentos(){    
     return this.http.get<Departamento[]>(this.UrlDepartamento)
   }  
+
+  getCargos(){    
+    return this.http.get<Cargo[]>(this.UrlCargo)
+  } 
 
   getCargoPorDepartamentoId(id:number){
     return this.http.get<Cargo[]>(this.UrlCargos+"/"+id)
@@ -82,8 +90,8 @@ export class ServiceService {
     return this.http.put<Funcionario>(this.UrlFuncionarios+"/"+func.id,func)
   }
 
-  deleteFuncionario(func:Funcionario){    
-    return this.http.delete<Funcionario>(this.UrlFuncionarios+"/"+func.id)
+  deleteFuncionario(id:number){    
+    return this.http.delete<Funcionario>(this.UrlFuncionarios+"/"+id)
   }
 
 }

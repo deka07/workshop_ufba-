@@ -28,6 +28,7 @@ export class EditarComponent implements OnInit {
   contatos: Contato[] = [];
   projetos: Projeto[] = [];
   funcionario: any;
+  id_edit!: string;
 
   Types: any = [
     {tipo: 'C', descricao: 'Celular'},
@@ -66,27 +67,85 @@ export class EditarComponent implements OnInit {
 
 
   async getAsyncData() {
-    var lId = localStorage.getItem("id")!; 
-    this.funcionario = await this.service.getFuncionarioId(+lId).toPromise();
+    this.id_edit = localStorage.getItem("id")!; 
+    this.funcionario = await this.service.getFuncionarioId(+this.id_edit).toPromise();
     this.estados = await this.service.getEstados().toPromise();
+    this.cidades = await this.service.getCidades().toPromise();
+    this.cargos = await this.service.getCargos().toPromise();
     this.departamentos = await this.service.getDepartamentos().toPromise();
     this.projetos = await this.service.getProjetos().toPromise();
   }
 
   async Editar(){
     await this.getAsyncData()    
+    console.log(this.projetos);
+    console.log(this.funcionario.projetos);
     this.setValues();
   }
 
-  setValues(){
-    console.log(this.funcionario);
+  setValues(){    
     (<HTMLInputElement>document.getElementById("NomeFuncionario")).value = this.funcionario.nome_funcionario;
     (<HTMLInputElement>document.getElementById("CPFFuncionario")).value = this.funcionario.cpf_funcionario;
-    (<HTMLInputElement>document.getElementById("DepartamentoFuncionario")).value = this.funcionario.cargo.departamento.id
-    (<HTMLInputElement>document.getElementById("CargoFuncionario")).value = this.funcionario.cargo.id
+    (<HTMLInputElement>document.getElementById("RuaFuncionario")).value = this.funcionario.endereco.rua;
+    (<HTMLInputElement>document.getElementById("BairroFuncionario")).value = this.funcionario.endereco.bairro;
+    (<HTMLInputElement>document.getElementById("NumeroFuncionario")).value = this.funcionario.endereco.numero;
+    (<HTMLInputElement>document.getElementById("DepartamentoFuncionario")).value = this.funcionario.cargo.departamento.id;
+    (<HTMLInputElement>document.getElementById("CargoFuncionario")).value = this.funcionario.cargo.id;
+    (<HTMLInputElement>document.getElementById("EstadoFuncionario")).value = this.funcionario.endereco.cidade.estado.id;
+    (<HTMLInputElement>document.getElementById("CidadeFuncionario")).value = this.funcionario.endereco.cidade.id;
+
+    for (let x of this.funcionario.contatos) {
+      this.contatos.push(
+        {
+          tipo: x.tipo == 'C' ? 'Celular' : x.tipo == 'T' ? 'Telefone' : 'E-mail',
+          campo: x.campo
+        }
+      )
+    }    
+
+    for (let y of this.funcionario.projetos) {
+      var objIndex = this.projetos.findIndex((obj => obj.id == y.id));
+      console.log(objIndex);
+      this.projetos[objIndex].selecionado = true
+    } 
   };
 
   Salvar(){
+    this.service.deleteFuncionario(+this.id_edit).toPromise();
+
+    var lNomeFuncionario = (<HTMLInputElement>document.getElementById("NomeFuncionario")).value;
+    var lCPFFuncionario = (<HTMLInputElement>document.getElementById("CPFFuncionario")).value;
+
+    var lCargoTela = (<HTMLInputElement>document.getElementById("CargoFuncionario")).value        
+    
+    var lCidadeTela = (<HTMLInputElement>document.getElementById("CidadeFuncionario")).value; 
+    
+    var lRuaFuncionario = (<HTMLInputElement>document.getElementById("RuaFuncionario")).value;
+    var lBairroFuncionario = (<HTMLInputElement>document.getElementById("BairroFuncionario")).value;
+    var lNumeroFuncionario = (<HTMLInputElement>document.getElementById("NumeroFuncionario")).value;
+    
+    var lContatos = this.contatos.map(x => ({ 
+      tipo: x.tipo == 'Celular' ? 'C' : x.tipo == 'Telefone' ? 'T' : 'E', campo: x.campo}))
+
+    var lProjetos = this.projetos.filter(x => x.selecionado == true);
+    var larrayProjetos = []
+    for (let entry of lProjetos) {
+      larrayProjetos.push(entry.id);
+    }
+
+    var newEndereco: Endereco = new Endereco(+lCidadeTela,lRuaFuncionario,lBairroFuncionario,lNumeroFuncionario);
+    var newFuncionario: Funcionario = new Funcionario(lNomeFuncionario,lCPFFuncionario,+lCargoTela,newEndereco,lContatos,larrayProjetos)
+
+    console.log(newFuncionario);
+
+    var obj = JSON.stringify(newFuncionario);
+
+    console.log(obj);
+
+    this.service.createFuncionarioFull(newFuncionario).subscribe(data=>{
+      alert("Funcionario atualizado com Sucesso!");
+      this.router.navigate(["listar"])
+    });
   }
 
 }
