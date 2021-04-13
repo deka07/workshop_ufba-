@@ -2,6 +2,7 @@
     <div class="card">
         <div class="card-header">
             <h3>Funcionarios</h3>
+            <button (click)="GerarPDF()" class="btn btn-success">PDF</button> 
         </div>
         <div class="card-body">
             <table class="table table-hover">
@@ -19,10 +20,11 @@
                       <td>
                         <button (click)="Editar(func)" class="btn btn-warning">Editar</button>
                         <button (click)="Deletar(func)" style="margin: 8px;" class="btn btn-danger">Deletar</button>
+                        <button (click)="GerarPDFFuncionario(func)" class="btn btn-success">PDF</button>                         
                       </td>
                     </tr>
                 </tbody>
             </table>
-        </div>
+        </div>        
     </div>
 </div>
